@@ -138,8 +138,6 @@ public class Driver {
     server = NettyServerBuilder.forAddress(new InetSocketAddress("127.0.0.1", 0))
         .sslContext(sslContext)
         .addService(new DriverImpl())
-        .workerEventLoopGroup(eg)
-        .bossEventLoopGroup(eg)
         .executor(executor)
         .build()
         .start();
