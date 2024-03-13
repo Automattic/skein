@@ -20,7 +20,7 @@
     <grpc.version>1.62.2</grpc.version>
     <boringssl.version>2.0.65.Final</boringssl.version>
     <jetty.version>9.2.10.v20150310</jetty.version>
-    <hadoopVersion>2.7.2</hadoopVersion>
+    <hadoopVersion>3.3.6</hadoopVersion>
     <skein.version>UNKNOWN</skein.version>
   </properties>
 
