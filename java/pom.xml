@@ -18,7 +18,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <grpc.version>1.62.2</grpc.version>
-    <boringssl.version>2.0.17.Final</boringssl.version>
+    <boringssl.version>2.0.65.Final</boringssl.version>
     <jetty.version>9.2.10.v20150310</jetty.version>
     <hadoopVersion>2.7.2</hadoopVersion>
     <skein.version>UNKNOWN</skein.version>
@@ -305,13 +305,6 @@
     https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
   -->
   <dependencies>
-
-    <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-tcnative</artifactId>
-        <version>2.0.65.Final</version>
-    </dependency>
-
     <dependency>
       <groupId>com.google.protobuf</groupId>
         <artifactId>protobuf-java</artifactId>
