@@ -442,10 +442,8 @@ public class Driver {
       appContext.setNodeLabelExpression(Strings.emptyToNull(spec.getNodeLabel()));
       appContext.setApplicationTags(spec.getTags());
       if (env.get("YARN_LOG_AGGREGATION_EXCLUDE_PATTERN")) {
-        LOG.info("YARN_LOG_AGGREGATION_EXCLUDE_PATTERN: {}",
-                 env.get("YARN_LOG_AGGREGATION_EXCLUDE_PATTERN"));
+        LOG.info("YARN_LOG_AGGREGATION_EXCLUDE_PATTERN: {}", env.get("YARN_LOG_AGGREGATION_EXCLUDE_PATTERN"));
       }
-      LOG.info("")
       appContext.setLogAggregationContext(
         LogAggregationContext.newInstance(
             env.get("YARN_LOG_AGGREGATION_INCLUDE_PATTERN"),
