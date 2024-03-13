@@ -15,8 +15,7 @@ from setuptools.command.install import install as _install
 
 import versioneer
 
-# VERSION = versioneer.get_version()
-VERSION = "0.8.3"
+VERSION = versioneer.get_version()
 
 ROOT_DIR = os.path.abspath(os.path.dirname(os.path.relpath(__file__)))
 JAVA_DIR = os.path.join(ROOT_DIR, 'java')
