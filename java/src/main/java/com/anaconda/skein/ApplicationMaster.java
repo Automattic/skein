@@ -299,7 +299,7 @@ public class ApplicationMaster {
         .forServer(new File(".skein.crt"), new File(".skein.pem"))
         .trustManager(new File(".skein.crt"))
         .clientAuth(ClientAuth.REQUIRE)
-        .sslProvider(SslProvider.OPENSSL_REFCNT)
+        .sslProvider(SslProvider.JDK)
         .build();
 
     NioEventLoopGroup eg = new NioEventLoopGroup(NUM_EVENT_LOOP_GROUP_THREADS);
