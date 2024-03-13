@@ -17,10 +17,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <grpc.version>1.62.2</grpc.version>
-    <boringssl.version>2.0.65.Final</boringssl.version>
+    <grpc.version>1.16.0</grpc.version>
+    <boringssl.version>2.0.17.Final</boringssl.version>
     <jetty.version>9.2.10.v20150310</jetty.version>
-    <hadoopVersion>3.3.6</hadoopVersion>
+    <hadoopVersion>2.7.2</hadoopVersion>
     <skein.version>UNKNOWN</skein.version>
   </properties>
 
@@ -174,9 +174,9 @@
       <plugin>
         <groupId>org.xolstice.maven.plugins</groupId>
         <artifactId>protobuf-maven-plugin</artifactId>
-        <version>0.6.1</version>
+        <version>0.5.1</version>
         <configuration>
-          <protocArtifact>com.google.protobuf:protoc:3.25.3:exe:${os.detected.classifier}</protocArtifact>
+          <protocArtifact>com.google.protobuf:protoc:3.0.0:exe:${os.detected.classifier}</protocArtifact>
         </configuration>
         <executions>
           <execution>
@@ -186,7 +186,7 @@
             </goals>
             <configuration>
               <pluginId>lite</pluginId>
-              <pluginArtifact>com.google.protobuf:protoc-gen-javalite:3.25.3</pluginArtifact>
+              <pluginArtifact>com.google.protobuf:protoc-gen-javalite:3.0.0</pluginArtifact>
             </configuration>
           </execution>
           <execution>
@@ -242,14 +242,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.12.1</version>
+        <version>3.7.0</version>
         <configuration>
           <compilerArgs>
             <arg>-Xlint:all</arg>
           </compilerArgs>
           <!-- About source/target: https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html -->
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>7</source>
+          <target>7</target>
         </configuration>
       </plugin>
 
@@ -305,11 +305,6 @@
     https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
   -->
   <dependencies>
-    <dependency>
-      <groupId>com.google.protobuf</groupId>
-        <artifactId>protobuf-java</artifactId>
-        <version>3.25.3</version>
-    </dependency>
 
     <dependency>
       <groupId>io.grpc</groupId>

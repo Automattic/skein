@@ -125,7 +125,7 @@ public class Driver {
         .forServer(certBytes.newInput(), keyBytes.newInput())
         .trustManager(certBytes.newInput())
         .clientAuth(ClientAuth.REQUIRE)
-        .sslProvider(SslProvider.JDK)
+        .sslProvider(SslProvider.OPENSSL)
         .build();
 
     NioEventLoopGroup eg = new NioEventLoopGroup(NUM_EVENT_LOOP_GROUP_THREADS);
@@ -138,6 +138,8 @@ public class Driver {
     server = NettyServerBuilder.forAddress(new InetSocketAddress("127.0.0.1", 0))
         .sslContext(sslContext)
         .addService(new DriverImpl())
+        .workerEventLoopGroup(eg)
+        .bossEventLoopGroup(eg)
         .executor(executor)
         .build()
         .start();
