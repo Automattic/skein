@@ -3,12 +3,12 @@ import os
 import re
 import subprocess
 import sys
+import pkg_resources
 from distutils.command.build import build as _build
 from distutils.command.clean import clean as _clean
 from distutils.dir_util import remove_tree
 from glob import glob
 
-from pkg_resources import resource_filename
 from setuptools import setup, Command
 from setuptools.command.develop import develop as _develop
 from setuptools.command.install import install as _install
@@ -49,7 +49,7 @@ class build_proto(Command):
 
     def run(self):
         from grpc_tools import protoc
-        include = resource_filename('grpc_tools', '_proto')
+        include = pkg_resources.resource_filename('grpc_tools', '_proto')
         for src in glob(os.path.join(JAVA_PROTO_DIR, "*.proto")):
             command = ['grpc_tools.protoc',
                        '--proto_path=%s' % JAVA_PROTO_DIR,
