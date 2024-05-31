@@ -22,7 +22,32 @@
     <jetty.version>9.2.10.v20150310</jetty.version>
     <hadoopVersion>2.7.2</hadoopVersion>
     <skein.version>UNKNOWN</skein.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
+  <profiles>
+    <profile>
+        <id>macos</id>
+        <activation>
+            <os>
+                <family>mac</family>
+            </os>
+        </activation>
+        <properties>
+            <archSuffix>:osx-x86_64</archSuffix>
+        </properties>
+    </profile>
+    <profile>
+        <id>default</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <archSuffix></archSuffix>
+        </properties>
+    </profile>
+</profiles>
 
   <build>
     <resources>
@@ -176,7 +201,7 @@
         <artifactId>protobuf-maven-plugin</artifactId>
         <version>0.5.1</version>
         <configuration>
-          <protocArtifact>com.google.protobuf:protoc:3.0.0:exe:${os.detected.classifier}</protocArtifact>
+          <protocArtifact>com.google.protobuf:protoc:3.0.0:exe${archSuffix}</protocArtifact>
         </configuration>
         <executions>
           <execution>
@@ -196,7 +221,7 @@
             </goals>
             <configuration>
               <pluginId>grpc-java</pluginId>
-              <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+              <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe${archSuffix}</pluginArtifact>
               <pluginParameter>lite</pluginParameter>
             </configuration>
           </execution>
@@ -242,14 +267,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
+        <version>3.8.1</version>
         <configuration>
           <compilerArgs>
             <arg>-Xlint:all</arg>
           </compilerArgs>
           <!-- About source/target: https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html -->
-          <source>7</source>
-          <target>7</target>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
 
