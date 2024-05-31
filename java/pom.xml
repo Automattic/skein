@@ -17,11 +17,11 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <grpc.version>1.16.0</grpc.version>
+    <grpc.version>1.64.0</grpc.version>
     <boringssl.version>2.0.17.Final</boringssl.version>
     <jetty.version>9.2.10.v20150310</jetty.version>
-    <protobuf.version>3.0.0</protobuf.version>
-    <hadoopVersion>2.7.2</hadoopVersion>
+    <protobuf.version>3.25.3</protobuf.version>
+    <hadoopVersion>3.3.5</hadoopVersion>
     <skein.version>UNKNOWN</skein.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -65,7 +65,7 @@
       <extension>
         <groupId>kr.motd.maven</groupId>
         <artifactId>os-maven-plugin</artifactId>
-        <version>1.5.0.Final</version>
+        <version>1.6.2</version>
       </extension>
     </extensions>
 
@@ -200,7 +200,7 @@
       <plugin>
         <groupId>org.xolstice.maven.plugins</groupId>
         <artifactId>protobuf-maven-plugin</artifactId>
-        <version>0.5.1</version>
+        <version>0.6.1</version>
         <configuration>
           <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe${archSuffix}</protocArtifact>
         </configuration>
@@ -212,7 +212,7 @@
             </goals>
             <configuration>
               <pluginId>lite</pluginId>
-              <pluginArtifact>com.google.protobuf:protoc-gen-javalite:${protobuf.version}</pluginArtifact>
+              <pluginArtifact>com.google.protobuf:protoc-java:${protobuf.version}</pluginArtifact>
             </configuration>
           </execution>
           <execution>
@@ -223,7 +223,6 @@
             <configuration>
               <pluginId>grpc-java</pluginId>
               <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe${archSuffix}</pluginArtifact>
-              <pluginParameter>lite</pluginParameter>
             </configuration>
           </execution>
         </executions>
@@ -340,7 +339,7 @@
 
     <dependency>
       <groupId>io.grpc</groupId>
-      <artifactId>grpc-protobuf-lite</artifactId>
+      <artifactId>grpc-protobuf</artifactId>
       <version>${grpc.version}</version>
     </dependency>
 
@@ -348,6 +347,13 @@
       <groupId>io.grpc</groupId>
       <artifactId>grpc-stub</artifactId>
       <version>${grpc.version}</version>
+    </dependency>
+
+    <dependency> <!-- necessary for Java 9+ -->
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>annotations-api</artifactId>
+      <version>6.0.53</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
