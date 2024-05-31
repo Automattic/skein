@@ -45,7 +45,7 @@
             <activeByDefault>true</activeByDefault>
         </activation>
         <properties>
-            <archSuffix>${os.detected.classifier}</archSuffix>
+            <archSuffix>:${os.detected.classifier}</archSuffix>
         </properties>
     </profile>
 </profiles>
