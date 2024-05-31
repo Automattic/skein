@@ -10,6 +10,7 @@ import io.grpc.StatusRuntimeException;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
@@ -125,7 +126,6 @@ public class Driver {
         .forServer(certBytes.newInput(), keyBytes.newInput())
         .trustManager(certBytes.newInput())
         .clientAuth(ClientAuth.REQUIRE)
-        .sslProvider(SslProvider.OPENSSL)
         .build();
 
     NioEventLoopGroup eg = new NioEventLoopGroup(NUM_EVENT_LOOP_GROUP_THREADS);
@@ -138,6 +138,7 @@ public class Driver {
     server = NettyServerBuilder.forAddress(new InetSocketAddress("127.0.0.1", 0))
         .sslContext(sslContext)
         .addService(new DriverImpl())
+        .channelType(NioServerSocketChannel.class)
         .workerEventLoopGroup(eg)
         .bossEventLoopGroup(eg)
         .executor(executor)
