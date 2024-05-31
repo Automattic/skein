@@ -166,7 +166,8 @@ is_build_step = bool({'build', 'install', 'develop',
                       'bdist_wheel'}.intersection(sys.argv))
 protos_built = bool(_compiled_protos()) and 'clean' not in sys.argv
 
-install_requires = ['protobuf>=3.5.0',
+install_requires = ['grpcio>=1.11.0,!=1.45.0',
+                    'protobuf>=3.5.0',
                     'pyyaml',
                     'cryptography']
 
