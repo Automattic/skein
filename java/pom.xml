@@ -20,6 +20,7 @@
     <grpc.version>1.16.0</grpc.version>
     <boringssl.version>2.0.17.Final</boringssl.version>
     <jetty.version>9.2.10.v20150310</jetty.version>
+    <protobuf.version>3.0.0</protobuf.version>
     <hadoopVersion>2.7.2</hadoopVersion>
     <skein.version>UNKNOWN</skein.version>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -44,7 +45,7 @@
             <activeByDefault>true</activeByDefault>
         </activation>
         <properties>
-            <archSuffix></archSuffix>
+            <archSuffix>${os.detected.classifier}</archSuffix>
         </properties>
     </profile>
 </profiles>
@@ -201,7 +202,7 @@
         <artifactId>protobuf-maven-plugin</artifactId>
         <version>0.5.1</version>
         <configuration>
-          <protocArtifact>com.google.protobuf:protoc:3.0.0:exe${archSuffix}</protocArtifact>
+          <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe${archSuffix}</protocArtifact>
         </configuration>
         <executions>
           <execution>
@@ -211,7 +212,7 @@
             </goals>
             <configuration>
               <pluginId>lite</pluginId>
-              <pluginArtifact>com.google.protobuf:protoc-gen-javalite:3.0.0</pluginArtifact>
+              <pluginArtifact>com.google.protobuf:protoc-gen-javalite:${protobuf.version}</pluginArtifact>
             </configuration>
           </execution>
           <execution>
