@@ -13,6 +13,7 @@ import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslProvider;
@@ -313,6 +314,7 @@ public class ApplicationMaster {
     grpcServer = NettyServerBuilder.forPort(0)
         .sslContext(sslContext)
         .addService(new AppMasterImpl())
+        .channelType(NioServerSocketChannel.class)
         .workerEventLoopGroup(eg)
         .bossEventLoopGroup(eg)
         .executor(executor)
