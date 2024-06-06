@@ -13,6 +13,7 @@ import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslProvider;
@@ -295,11 +296,12 @@ public class ApplicationMaster {
 
   private void startServer() throws IOException {
     // Setup and start the server
+    // Java 11 don't need to explicitly specify the SSL provider,
+    // as Java's built-in TLS implementation is used by default.
     SslContext sslContext = GrpcSslContexts
         .forServer(new File(".skein.crt"), new File(".skein.pem"))
         .trustManager(new File(".skein.crt"))
         .clientAuth(ClientAuth.REQUIRE)
-        .sslProvider(SslProvider.OPENSSL)
         .build();
 
     NioEventLoopGroup eg = new NioEventLoopGroup(NUM_EVENT_LOOP_GROUP_THREADS);
@@ -312,6 +314,7 @@ public class ApplicationMaster {
     grpcServer = NettyServerBuilder.forPort(0)
         .sslContext(sslContext)
         .addService(new AppMasterImpl())
+        .channelType(NioServerSocketChannel.class)
         .workerEventLoopGroup(eg)
         .bossEventLoopGroup(eg)
         .executor(executor)

@@ -11,9 +11,9 @@ import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.ssl.ClientAuth;
 import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslProvider;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -125,7 +125,6 @@ public class Driver {
         .forServer(certBytes.newInput(), keyBytes.newInput())
         .trustManager(certBytes.newInput())
         .clientAuth(ClientAuth.REQUIRE)
-        .sslProvider(SslProvider.OPENSSL)
         .build();
 
     NioEventLoopGroup eg = new NioEventLoopGroup(NUM_EVENT_LOOP_GROUP_THREADS);
@@ -138,6 +137,7 @@ public class Driver {
     server = NettyServerBuilder.forAddress(new InetSocketAddress("127.0.0.1", 0))
         .sslContext(sslContext)
         .addService(new DriverImpl())
+        .channelType(NioServerSocketChannel.class)
         .workerEventLoopGroup(eg)
         .bossEventLoopGroup(eg)
         .executor(executor)
@@ -442,7 +442,7 @@ public class Driver {
       appContext.setNodeLabelExpression(Strings.emptyToNull(spec.getNodeLabel()));
       appContext.setApplicationTags(spec.getTags());
       appContext.setLogAggregationContext(
-        LogAggregationContext.newInstance(
+          LogAggregationContext.newInstance(
             env.get("YARN_LOG_AGGREGATION_INCLUDE_PATTERN"),
             env.get("YARN_LOG_AGGREGATION_EXCLUDE_PATTERN")));
 
