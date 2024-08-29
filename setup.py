@@ -166,12 +166,12 @@ is_build_step = bool({'build', 'install', 'develop',
                       'bdist_wheel'}.intersection(sys.argv))
 protos_built = bool(_compiled_protos()) and 'clean' not in sys.argv
 
-install_requires = ['grpcio>=1.11.0,!=1.45.0',
+install_requires = ['grpcio==1.66.1',
                     'protobuf>=3.5.0',
                     'pyyaml',
                     'cryptography']
 
-setup_requires = ['grpcio-tools!=1.45.0']
+setup_requires = ['grpcio-tools==1.66.1']
 
 # Due to quirks in setuptools/distutils dependency ordering, to get the java
 # and protobuf sources to build automatically in most cases, we need to check
