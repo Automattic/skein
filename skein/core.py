@@ -228,7 +228,7 @@ def _start_driver(security=None, set_global=False, keytab=None, principal=None,
         env['SKEIN_CALLBACK_PORT'] = str(callback_port)
 
         if log is None:
-            outfil = None
+            outfil = subprocess.PIPE
         elif log is False:
             outfil = subprocess.DEVNULL
         else:
@@ -254,7 +254,11 @@ def _start_driver(security=None, set_global=False, keytab=None, principal=None,
                     port = struct.unpack("!i", msg)[0]
                     break
         else:
-            raise DriverError("Failed to start java process")
+            err = proc.stderr
+            if bool(log):
+                with open(log, 'r') as log_file:
+                    err = log_file.read()
+            raise DriverError(f"Failed to start java process. \nError: {err}")
 
     address = '127.0.0.1:%d' % port
 
