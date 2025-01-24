@@ -243,7 +243,7 @@ def _start_driver(security=None, set_global=False, keytab=None, principal=None,
                                 start_new_session=True)
 
         while proc.poll() is None:
-            readable, _, _ = select.select([callback], [], [], 60)
+            readable, _, _ = select.select([callback], [], [], 10)
             if callback in readable:
                 connection = callback.accept()[0]
                 with closing(connection):
