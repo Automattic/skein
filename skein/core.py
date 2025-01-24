@@ -248,7 +248,7 @@ def _start_driver(security=None, set_global=False, keytab=None, principal=None,
                 connection = callback.accept()[0]
                 with closing(connection):
                     stream = connection.makefile(mode="rb")
-                    msg = stream.read(4)
+                    msg = stream.read(5)
                     if not msg:
                         raise DriverError("Failed to read in client port")
                     port = struct.unpack("!i", msg)[0]
