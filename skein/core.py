@@ -253,12 +253,12 @@ def _start_driver(security=None, set_global=False, keytab=None, principal=None,
                         raise DriverError("Failed to read in client port")
                     port = struct.unpack("!i", msg)[0]
                     break
-            else:
-                err = proc.stderr
-                if bool(log):
-                    with open(log, 'r') as log_file:
-                        err = log_file.read()
-                raise DriverError(f"Failed to start java process. \nError: {err}")
+        else:
+            err = proc.stderr
+            if bool(log):
+                with open(log, 'r') as log_file:
+                    err = log_file.read()
+            raise DriverError(f"Failed to start java process. \nError: {err}")
 
     address = '127.0.0.1:%d' % port
 
