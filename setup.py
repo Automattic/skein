@@ -3,7 +3,6 @@ import os
 import re
 import subprocess
 import sys
-import pkg_resources
 from distutils.command.build import build as _build
 from distutils.command.clean import clean as _clean
 from distutils.dir_util import remove_tree
@@ -48,8 +47,8 @@ class build_proto(Command):
             fil.write(''.join(new))
 
     def run(self):
-        from grpc_tools import protoc
-        include = pkg_resources.resource_filename('grpc_tools', '_proto')
+        import grpc_tools
+        include = os.path.join(os.path.dirname(grpc_tools.__file__), '_proto')
         for src in glob(os.path.join(JAVA_PROTO_DIR, "*.proto")):
             command = ['grpc_tools.protoc',
                        '--proto_path=%s' % JAVA_PROTO_DIR,
@@ -57,7 +56,7 @@ class build_proto(Command):
                        '--python_out=%s' % SKEIN_PROTO_DIR,
                        '--grpc_python_out=%s' % SKEIN_PROTO_DIR,
                        src]
-            if protoc.main(command) != 0:
+            if grpc_tools.protoc.main(command) != 0:
                 self.warn('Command: `%s` failed'.format(command))
                 sys.exit(1)
 
