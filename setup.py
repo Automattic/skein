@@ -47,7 +47,7 @@ class build_proto(Command):
             fil.write(''.join(new))
 
     def run(self):
-        import grpc_tools
+        import grpc_tools.protoc
         include = os.path.join(os.path.dirname(grpc_tools.__file__), '_proto')
         for src in glob(os.path.join(JAVA_PROTO_DIR, "*.proto")):
             command = ['grpc_tools.protoc',
